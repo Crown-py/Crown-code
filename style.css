@@ -1,0 +1,117 @@
+
+.calculator {
+    width: 450px;
+    height: 650px;
+    background-color: #f0f0f0;
+    border: 10px solid #ccc;
+    border-radius: 20px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+align:center;
+}
+
+.display {
+    width: 100%;
+    height: 50px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 24px;
+    text-align: right;
+}
+
+.keys {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.key {
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.key:hover {
+    background-color: #ccc;
+}
+
+.key:active {
+    background-color: #aaa;
+}
+
+#clear, #backspace {
+    background-color: #ff9900;
+    color: #fff;
+}
+
+#equals {
+    background-color: #007bff;
+    color: #fff;
+}
+
+<!-- JavaScript (in script.js file) -->
+let display = document.getElementById('display');
+let keys = document.querySelectorAll('.key');
+
+let calculator = {
+    displayValue: '0',
+    firstOperand: null,
+    secondOperand: null,
+    operator: null,
+};
+
+keys.forEach(key => {
+    key.addEventListener('click', () => {
+        handleKeyClick(key.id);
+    });
+});
+
+function handleKeyClick(keyId) {
+    switch (keyId) {
+        case 'clear':
+            calculator.displayValue = '0';
+            calculator.firstOperand = null;
+            calculator.secondOperand = null;
+            calculator.operator = null;
+            break;
+        case 'backspace':
+            calculator.displayValue = calculator.displayValue.slice(0, -1);
+            break;
+        case 'divide':
+        case 'multiply':
+        case 'subtract':
+        case 'add':
+            calculator.operator = keyId;
+            calculator.firstOperand = parseFloat(calculator.displayValue);
+            calculator.displayValue = '0';
+            break;
+        case 'equals':
+            calculator.secondOperand = parseFloat(calculator.displayValue);
+            let result = calculateResult();
+            calculator.displayValue = result.toString();
+            calculator.firstOperand = null;
+            calculator.secondOperand = null;
+            calculator.operator = null;
+            break;
+        default:
+            if (calculator.displayValue === '0') {
+                calculator.displayValue = keyId;
+            } else {
+                calculator.displayValue += keyId;
+            }
+    }
+    display.value = calculator.displayValue;
+}
+
+function calculateResult() {
+    switch (calculator.operator) {
+        case '
