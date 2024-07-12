@@ -1,0 +1,79 @@
+import math
+from sympy import symbols, solve, Eq
+
+def complex_tasks_calculator():
+    print("Welcome to the Complex Tasks Calculator!")
+    print("Choose a task:")
+    print("1. Arithmetic Operations")
+    print("2. Trigonometric Functions")
+    print("3. Logarithms")
+    print("4. Solving Equations")
+    print("5. Exit")
+
+    while True:
+        choice = input("Enter your choice (1-5): ")
+        
+        if choice == '1':
+            print("You chose Arithmetic Operations.")
+            num1 = float(input("Enter first number: "))
+            num2 = float(input("Enter second number: "))
+            operation = input("Enter operation (+, -, *, /): ")
+            
+            if operation == '+':
+                print(f"Result: {num1 + num2}")
+            elif operation == '-':
+                print(f"Result: {num1 - num2}")
+            elif operation == '*':
+                print(f"Result: {num1 * num2}")
+            elif operation == '/':
+                if num2 != 0:
+                    print(f"Result: {num1 / num2}")
+                else:
+                    print("Error: Division by zero")
+            else:
+                print("Invalid operation")
+        
+        elif choice == '2':
+            print("You chose Trigonometric Functions.")
+            angle = float(input("Enter angle in degrees: "))
+            function = input("Enter function (sin, cos, tan): ")
+            
+            if function == 'sin':
+                print(f"Result: {math.sin(math.radians(angle))}")
+            elif function == 'cos':
+                print(f"Result: {math.cos(math.radians(angle))}")
+            elif function == 'tan':
+                print(f"Result: {math.tan(math.radians(angle))}")
+            else:
+                print("Invalid function")
+        
+        elif choice == '3':
+            print("You chose Logarithms.")
+            number = float(input("Enter the number: "))
+            base = float(input("Enter the base (default is e): "))
+            
+            if base == 0 or base == 1:
+                print("Invalid base")
+            else:
+                print(f"Result: {math.log(number, base)}")
+        
+        elif choice == '4':
+            print("You chose Solving Equations.")
+            equation = input("Enter the equation (e.g., 2*x + 3 = 0): ")
+            x = symbols('x')
+            try:
+                eq = Eq(eval(equation.split('=')[0]), eval(equation.split('=')[1]))
+                solution = solve(eq, x)
+                print(f"Solution: {solution}")
+            except Exception as e:
+                print(f"Error in solving equation: {e}")
+        
+        elif choice == '5':
+            print("Exiting the calculator. Goodbye!")
+            break
+        
+        else:
+            print("Invalid choice, please try again.")
+
+if __name__ == "__main__":
+    complex_tasks_calculator()
